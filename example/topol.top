@@ -1,0 +1,13 @@
+#include "toppar/martini_v2.2P.itp"
+#include "toppar/martini_v2.0_ions.itp"
+#include "CHL_CG.itp"
+
+[ system ]
+; name
+Martini system
+
+[ molecules ]
+; name        number
+CHL              1
+PW             474
+CL               2

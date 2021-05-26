@@ -1,0 +1,45 @@
+;define                = -POSRES_SMA
+integrator               = md
+dt                       = 0.02 ; 0.002 = 2 fs [ps]
+; 1 000 000 = 15 ns
+nsteps                   = 50000 ; 2 * 10000 = 20 ps
+;nsteps                   = -1 ;-1 is no maximum
+nstlog                   = 50000 ;number of steps that elapse between writing energies to the log file, the last energies are always written
+nstxtcout                = 100 ;frequency to write coordinates to xtc trajectory
+xtc_precision            = 100 ;precision to write to xtc trajectory
+xtc-grps                 = CHL
+cutoff-scheme            = Verlet
+nstlist                  = 20 ;Frequency to update the neighbor list
+ns_type                  = grid ;Make a grid in the box and only check atoms in neighboring grid cells when constructing a new neighbor list every nstlist steps
+pbc                      = xyz
+verlet-buffer-tolerance  = 0.005
+
+coulombtype              = reaction-field 
+rcoulomb                 = 1.1
+epsilon_r                = 2.5	; 2.5 (with polarizable water)
+epsilon_rf               = 0
+vdw_type                 = cutoff  
+vdw-modifier             = Potential-shift-verlet
+rvdw                     = 1.1
+
+tcoupl                   = Berendsen
+tc-grps                  = System
+tau_t                    = 1.0
+ref_t                    = 320
+; Pressure coupling:
+Pcoupl                   = Berendsen
+Pcoupltype               = isotropic
+tau_p                    = 3.0
+compressibility          = 4.5e-5
+ref_p                    = 1.0
+
+;Pcoupl                   = parrinello-rahman 
+;Pcoupltype               = isotropic
+;tau_p                    = 12.0  ;parrinello-rahman is more stable with larger tau-p, DdJ, 20130422
+;compressibility          = 3e-4
+;ref_p                    = 1.0
+
+; GENERATE VELOCITIES FOR STARTUP RUN:
+gen_vel                  = yes
+gen_seed = -1
+refcoord_scaling         = all
